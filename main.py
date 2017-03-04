@@ -61,11 +61,10 @@ def stats(data):
 
 def weco_1(data):
 
-    index = 0
     no_weco_1 = []
     for i in data:
         if i in stats(data)[5]:
-            no_weco_1.append(index)
+            no_weco_1.append(data.index(i))
     return no_weco_1
 
 

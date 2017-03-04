@@ -44,11 +44,10 @@ def stats(data):
     med = np.median(data)
     qq3 = np.percentile(data, 75)
     std = np.std(data)
-    IQR = qq3 - qq1
     loa, uoa = outlier_limits(data)
     out = []
     for j in data:
-        if j < lo aor j > uoa:
+        if j < loa or j > uoa:
             out.append(j)
     if len(out) > 0:
         outlier = out
@@ -57,4 +56,4 @@ def stats(data):
     else:
         outlier = []
 
-    return avg, qq1, med, qq3, std, IQR, outlier
+    return avg, qq1, med, qq3, std, outlier

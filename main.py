@@ -9,8 +9,7 @@ data.append(300)
 
 
 def remove_zero(data):
-    if type(data) != 'list':
-        data = data.tolist()
+    data = data.tolist()
     for i in data:
         if i == 0:
             data.remove(i)
@@ -41,6 +40,7 @@ def clean_data(data):
     #cleans data from outliers
 
     loa, uoa = outlier_limits(data)
+    data = remove_zero(data)
     for i in data:
         if i < loa or i > uoa:
             data.remove(i)

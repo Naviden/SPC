@@ -20,7 +20,7 @@ def prepare(data):
 
 
 def outlier_limits(data):
-    data = prepare(data)
+
     qq1 = np.percentile(data, 25)
     qq3 = np.percentile(data, 75)
     IQR = qq3 - qq1
@@ -43,7 +43,7 @@ def clean_data(data):
     #cleans data from outliers
 
     loa, uoa = outlier_limits(data)
-    data = remove_zero(data)
+
     for i in data:
         if i < loa or i > uoa:
             data.remove(i)
@@ -157,7 +157,10 @@ plt.plot(df.T1)
 plt.show()"""
 
 
-data = clean_data(df.T1)
+data = prepare(df.T1)
+
+
+
 print(weco_1(data))
 print('outliers = ', stats(data)[5])
 

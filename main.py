@@ -59,8 +59,6 @@ def stats(data):
     return avg, qq1, med, qq3, std, outlier
 
 
-
-
 def area(data, type ='other'):
     #calculates areas
 
@@ -90,10 +88,10 @@ def area(data, type ='other'):
     return  u_1, u_2, u_3 , d_1, d_2, d_3
 
 
-def find_area(data, dtype ='other', point):
+def find_area(data, point, ddtype ='other'):
     #defines area of each point
 
-    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type = dtype)
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type = ddtype)
 
     if point < u_3 and point > u_2:
         areak = 'u3'
@@ -124,13 +122,13 @@ def weco_2(data):
     poss_range = np.arange(2,len(data),1)
     #weco_2 should look at a range of 3 >> poss_range
     for i in poss_range:
-        rangek = range(i-2,i,1)
+        rangek = np.arange(i-2, i, 1)
         stat_check = []
         for j in rangek:
-            stat_check.append(find_area(data, dtype ='time', data[i]))
-        if stat_check.count('u2') + stat_check.count('u3') or tat_check.count('d2') + stat_check.count('d3') >= 2:
+            stat_check.append(find_area(data, data[j], ddtype ='time'))
+        if stat_check.count('u2') + stat_check.count('u3') >= 2 or \
+                                stat_check.count('d2') + stat_check.count('d3') >= 2:
             no_weco_2.append(i)
     return no_weco_2
-
 
 

@@ -1,7 +1,6 @@
 import numpy as np
 import math
 from statsmodels.stats.stattools import medcouple
-#import pandas as pd
 
 data = list(np.arange(1,100, 1))
 data.append(300)
@@ -30,7 +29,7 @@ def clean_data(data):
     #cleans data from outliers
 
     loa, uoa = outlier_limits(data)
-
+    data = data.tolist()
     for i in data:
         if i < loa or i > uoa:
             data.remove(i)

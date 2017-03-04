@@ -4,17 +4,13 @@ from statsmodels.stats.stattools import medcouple
 import matplotlib.pyplot as plt
 import pandas as pd
 
-data = list(np.arange(1,100, 1))
-data.append(300)
 
 
 def prepare(data):
     #convert Series to list
     data = data.tolist()
     #Remove possible zeros
-    for i in data:
-        if i == 0:
-            data.remove(i)
+    data = list(filter(lambda a: a != float(0), data))
     return data
 
 

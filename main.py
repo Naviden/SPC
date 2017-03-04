@@ -8,6 +8,18 @@ data = list(np.arange(1,100, 1))
 data.append(300)
 
 
+def prepare(data):
+    #convert Series to list
+    data = data.tolist()
+    #Remove possible zeros
+    for i in data:
+        if i == 0:
+            data.remove(i)
+    return data
+
+
+
+
 def remove_zero(data):
     data = data.tolist()
     for i in data:

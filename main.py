@@ -14,10 +14,11 @@ def remove_zero(data):
     for i in data:
         if i == 0:
             data.remove(i)
+    return data
 
 
 def outlier_limits(data):
-
+    data = remove_zero(data)
     qq1 = np.percentile(data, 25)
     qq3 = np.percentile(data, 75)
     IQR = qq3 - qq1

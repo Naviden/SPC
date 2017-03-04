@@ -19,17 +19,8 @@ def prepare(data):
 
 
 
-
-def remove_zero(data):
-    data = data.tolist()
-    for i in data:
-        if i == 0:
-            data.remove(i)
-    return data
-
-
 def outlier_limits(data):
-    data = remove_zero(data)
+    data = prepare(data)
     qq1 = np.percentile(data, 25)
     qq3 = np.percentile(data, 75)
     IQR = qq3 - qq1

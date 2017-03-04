@@ -120,9 +120,17 @@ def weco_1(data):
 
 
 def weco_2(data):
+    no_weco_2 = []
     poss_range = np.arange(2,len(data),1)
+    #weco_2 should look at a range of 3 >> poss_range
     for i in poss_range:
         rangek = range(i-2,i,1)
+        stat_check = []
         for j in rangek:
-            #area define
+            stat_check.append(find_area(data, dtype ='time', data[i]))
+        if stat_check.count('u2') + stat_check.count('u3') or tat_check.count('d2') + stat_check.count('d3') >= 2:
+            no_weco_2.append(i)
+    return no_weco_2
+
+
 

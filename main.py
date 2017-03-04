@@ -113,9 +113,11 @@ def find_area(data, point, ddtype ='other'):
 
 def weco_1(data):
     no_weco_1 = []
+    indexak = 0
     for i in data:
         if i in stats(data)[5]:
-            no_weco_1.append(data.index(i))
+            no_weco_1.append(indexak)
+        indexak+=1
     return no_weco_1
 
 
@@ -145,7 +147,9 @@ plt.show()"""
 
 data = clean_data(df.T1)
 print(weco_1(data))
-print('outliers = ', stats(data)[5],sep='-')
+print('outliers = ', stats(data)[5])
+
+print('Outlier Limits = ', outlier_limits(data))
 a = 0
 for g in data:
     print (a,'-',g)

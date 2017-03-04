@@ -7,6 +7,15 @@ import pandas as pd
 data = list(np.arange(1,100, 1))
 data.append(300)
 
+
+def remove_zero(data):
+    if type(data) != 'list':
+        data = data.tolist()
+    for i in data:
+        if i == 0:
+            data.remove(i)
+
+
 def outlier_limits(data):
 
     qq1 = np.percentile(data, 25)

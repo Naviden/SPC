@@ -57,3 +57,16 @@ def stats(data):
         outlier = []
 
     return avg, qq1, med, qq3, std, outlier
+
+
+def weco_1(data):
+
+    index = 0
+    no_weco_1 = []
+    for i in data:
+        if i in stats(data)[5]:
+            no_weco_1.append(index)
+    return no_weco_1
+
+
+

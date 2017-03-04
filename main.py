@@ -59,7 +59,10 @@ def stats(data):
     return avg, qq1, med, qq3, std, outlier
 
 
+
+
 def area(data, type ='other'):
+    #calculates areas
 
     if type == 'time':
         u_1 = stats(data)[0] + stats(data)[4]
@@ -84,10 +87,31 @@ def area(data, type ='other'):
         d_2 = stats(data)[0] - (2 * stats(data)[4])
         d_3 = stats(data)[0] - (3 * stats(data)[4])
 
+    return  u_1, u_2, u_3 , d_1, d_2, d_3
+
+
+def find_area(data, dtype ='other', point):
+    #defines area of each point
+
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type = dtype)
+
+    if point < u_3 and point > u_2:
+        areak = 'u3'
+    if point < u_2 and point > u_1:
+        areak = 'u2'
+    if point < u_1 and point > stats(data)[0]:
+        areak = 'u1'
+    if point < stats(data)[0] and point > u_1:
+        areak = 'd1'
+    if point < u_1 and point > u_2:
+        areak = 'd2'
+    if point < u_2 and point > u_3:
+        areak = 'd3'
+
+    return areak
 
 
 def weco_1(data):
-
     no_weco_1 = []
     for i in data:
         if i in stats(data)[5]:
@@ -95,4 +119,10 @@ def weco_1(data):
     return no_weco_1
 
 
-#def weco_2(data)
+def weco_2(data):
+    poss_range = np.arange(2,len(data),1)
+    for i in poss_range:
+        rangek = range(i-2,i,1)
+        for j in rangek:
+            #area define
+

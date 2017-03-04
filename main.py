@@ -1,6 +1,8 @@
 import numpy as np
 import math
 from statsmodels.stats.stattools import medcouple
+import matplotlib.pyplot as plt
+import pandas as pd
 
 data = list(np.arange(1,100, 1))
 data.append(300)
@@ -91,6 +93,7 @@ def find_area(data, point, ddtype ='other'):
     #defines area of each point
 
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type = ddtype)
+    areak = 'NON'
 
     if point < u_3 and point > u_2:
         areak = 'u3'
@@ -131,3 +134,19 @@ def weco_2(data):
     return no_weco_2
 
 
+
+#TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
+
+"""plt.figure(1)
+plt.plot(df.T1)
+plt.show()"""
+
+
+data = clean_data(df.T1)
+print(weco_1(data))
+print('outliers = ', stats(data)[5],sep='-')
+a = 0
+for g in data:
+    print (a,'-',g)
+    a  =a + 1

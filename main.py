@@ -59,6 +59,33 @@ def stats(data):
     return avg, qq1, med, qq3, std, outlier
 
 
+def area(data, type ='other'):
+
+    if type == 'time':
+        u_1 = stats(data)[0] + stats(data)[4]
+        u_2 = stats(data)[0] + (2 * stats(data)[4])
+        u_3 = stats(data)[0] + (3 * stats(data)[4])
+
+        d_1 = stats(data)[0] - stats(data)[4]
+        if d_1 < 0 :
+            d_1 = 0
+        d_2 = stats(data)[0] - (2 * stats(data)[4])
+        if d_2 < 0 :
+            d_2 = 0
+        d_3 = stats(data)[0] - (3 * stats(data)[4])
+        if d_3 < 0 :
+            d_3 = 0
+
+    else:
+        u_1 = stats(data)[0] + stats(data)[4]
+        u_2 = stats(data)[0] + (2 * stats(data)[4])
+        u_3 = stats(data)[0] + (3 * stats(data)[4])
+        d_1 = stats(data)[0] - stats(data)[4]
+        d_2 = stats(data)[0] - (2 * stats(data)[4])
+        d_3 = stats(data)[0] - (3 * stats(data)[4])
+
+
+
 def weco_1(data):
 
     no_weco_1 = []
@@ -68,4 +95,4 @@ def weco_1(data):
     return no_weco_1
 
 
-
+#def weco_2(data)

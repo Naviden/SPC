@@ -159,6 +159,7 @@ def weco_2(data):
 def weco_3(data):
     #Four of the five most recent points plot outside and on the same side
     # as one of the 1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_3 = []
     poss_range = np.arange(4, len(data), 1)
     # weco_3 should look at a range of 3 >> poss_range
@@ -187,6 +188,7 @@ data = prepare(df.T1)
 
 print('weco_1 ='  ,weco_1(data))
 print('weco_2 = '  ,weco_2(data))
+print('weco_3 = '  ,weco_3(data))
 print('outliers = ', stats(data)[5])
 
 print('Outlier Limits = ', outlier_limits(data))

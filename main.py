@@ -120,10 +120,11 @@ def find_area(data, point, ddtype ='other'):
 
 
 def weco_1(data):
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_1 = []
     indexak = 0
     for i in data:
-        if i in stats(data)[5]:
+        if i < d_3 or i > u_3:
             no_weco_1.append(indexak)
         indexak+=1
     return no_weco_1
@@ -148,20 +149,29 @@ def weco_2(data):
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
-"""plt.figure(1)
-plt.plot(df.T1)
-plt.show()"""
-
-
 data = prepare(df.T1)
 
 
 
-print(weco_1(data))
+
+
+
+print('weco_1 ='  ,weco_1(data))
+print('weco_2 = '  ,weco_2(data))
 print('outliers = ', stats(data)[5])
 
 print('Outlier Limits = ', outlier_limits(data))
-a = 0
-for g in data:
-    print (a,'-',g)
-    a  =a + 1
+
+u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
+
+plt.figure(1)
+plt.plot(data)
+plt.hlines(stats(data)[0],xmax = len(data), xmin= 0,colors='k')
+plt.hlines(u_1,xmax = len(data), xmin= 0,colors='c')
+plt.hlines(d_1,xmax = len(data), xmin= 0,colors='c')
+plt.hlines(u_2,xmax = len(data), xmin= 0,colors='b')
+plt.hlines(d_2,xmax = len(data), xmin= 0,colors='b')
+plt.hlines(u_3,xmax = len(data), xmin= 0,colors='r')
+plt.hlines(d_3,xmax = len(data), xmin= 0,colors='r')
+plt.axis([0,len(data),0,max(data)])
+plt.show()

@@ -276,6 +276,26 @@ def weco_8(data):
 
     return no_weco_8
 
+
+def weco_rules(data):
+    w1 = weco_1(data)
+    w2 = weco_2(data)
+    w3 = weco_3(data)
+    w4 = weco_4(data)
+    w5 = weco_5(data)
+    w6 = weco_6(data)
+    w7 = weco_7(data)
+    w8 = weco_8(data)
+
+    w_list =[w1, w2, w3, w4, w5, w6, w7, w8]
+    total_weco = []
+    for i in w_list:
+        for j in i:
+            if j not in total_weco:
+                total_weco.append(j)
+    return sorted(total_weco)
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
@@ -301,6 +321,7 @@ print('weco_6 = '  ,weco_6(data))
 print('weco_7 = '  ,weco_7(data))
 print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
+print('WECO POINTS = ',weco_rules(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

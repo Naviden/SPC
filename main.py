@@ -185,7 +185,7 @@ def weco_5(data):
     # weco_5 should look at a range of 6 >> poss_range forces the code
     #to ignore the first 5 points ad start from 6th point
     for i in poss_range:
-        rangek = np.arange(i - 7, i + 1, 1)
+        rangek = np.arange(i - 5, i + 1, 1)
         tempak = []
         a = 0
         for j in rangek:

@@ -355,6 +355,129 @@ def nelson_3(data):
     return no_nelson_3
 
 
+def nelson_4(data):
+    # Nine out of the last nine points plot on the same side of the center
+    # line, or target value.
+    no_nelson_4 = []
+    poss_range = np.arange(8, len(data), 1)
+    # weco_4 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 8, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 9 or tempak.count('d') == 9:
+            no_nelson_4.append(i)
+
+    return no_nelson_4
+
+
+def nelson_5(data):
+    #Six points in a row increasing or decreasing.
+    no_nelson_5 = []
+    poss_range = np.arange(5, len(data), 1)
+    # nelson_5 should look at a range of 6 >> poss_range forces the code
+    #to ignore the first 5 points ad start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 5, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j-1]:
+                    tempak.append('l')
+                else:
+                    tempak.append('h')
+            a+=1
+        if tempak.count('l') == 5 or tempak.count('h') ==5:
+            no_nelson_5.append(i)
+
+    return no_nelson_5
+
+
+def nelson_6(data):
+    #Fifteen points in a row within one sigma
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_nelson_6 = []
+    poss_range = np.arange(14, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 14, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > d_1 and data[j] < u_1:
+                tempak.append('T')
+        if tempak.count('T') == 15 :
+            no_nelson_6.append(i)
+
+    return no_nelson_6
+
+
+def nelson_7(data):
+    #Fourteen points in a row alternating direction
+    no_nelson_7 = []
+    poss_range = np.arange(13, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 14, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j-1]:
+                    tempak.append('l')
+                else:
+                    tempak.append('h')
+            a+=1
+        alt_1 = ['l','h','l','h','l','h','l','h','l','h','l','h','l']
+        alt_2 = ['h','l', 'h','l','h','l','h','l','h','l','h','l','h']
+        if tempak == alt_1 or tempak == alt_2:
+            no_nelson_7.append(i)
+
+    return no_nelson_7
+
+
+def nelson_8(data):
+    #Eight points in a row outside one sigma.
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_nelson_8 = []
+    poss_range = np.arange(7, len(data), 1)
+    # nelson_8 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1 or data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') == 8 :
+            no_nelson_8.append(i)
+
+    return no_nelson_8
+
+
+def nelson_rules(data):
+    n1 = nelson_1(data)
+    n2 = nelson_2(data)
+    n3 = nelson_3(data)
+    n4 = nelson_4(data)
+    n5 = nelson_5(data)
+    n6 = nelson_6(data)
+    n7 = nelson_7(data)
+    n8 = nelson_8(data)
+
+    n_list =[n1, n2, n3, n4, n5, n6, n7, n8]
+    total_nelson = []
+    for i in n_list:
+        for j in i:
+            if j not in total_nelson:
+                total_nelson.append(j)
+    return sorted(total_nelson)
+
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
@@ -382,6 +505,7 @@ print('weco_7 = '  ,weco_7(data))
 print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
 print('WECO POINTS = ',weco_rules(data))
+print('NELSON POINTS = ',nelson_rules(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

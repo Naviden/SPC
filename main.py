@@ -146,9 +146,9 @@ def weco_2(data):
         rangek = np.arange(i-2, i, 1)
         tempak = []
         for j in rangek:
-            if j > u_2:
+            if data[j] > u_2:
                 tempak.append('u')
-            if j < d_2:
+            if data[j] < d_2:
                 tempak.append('d')
         if tempak.count('u') >= 2 or tempak.count('d') >= 2:
             no_weco_2.append(i)
@@ -167,9 +167,9 @@ def weco_3(data):
         rangek = np.arange(i - 4, i, 1)
         tempak = []
         for j in rangek:
-            if j > u_1:
+            if data[j] > u_1:
                 tempak.append('u')
-            if j < d_1:
+            if data[j] < d_1:
                 tempak.append('d')
         if tempak.count('u') >= 4 or tempak.count('d') >= 4:
             no_weco_3.append(i)

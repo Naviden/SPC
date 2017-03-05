@@ -138,20 +138,38 @@ def weco_2(data):
     #Two of the three most recent points plot outside and on the same side
     # as one of the 2-sigma control limits.
 
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_2 = []
     poss_range = np.arange(2,len(data),1)
     #weco_2 should look at a range of 3 >> poss_range
     for i in poss_range:
         rangek = np.arange(i-2, i, 1)
-        stat_check = []
+        tempak = []
         for j in rangek:
-            stat_check.append(find_area(data, data[j], ddtype ='time'))
-        if stat_check.count('u2') + stat_check.count('u3') >= 2 or \
-                                stat_check.count('d2') + stat_check.count('d3') >= 2:
+            if j > d_2:
+                tempak.append('u')
+            if j < u_2:
+                tempak.append('d')
+        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
             no_weco_2.append(i)
+
     return no_weco_2
 
 
+def weco_3(data):
+    #Four of the five most recent points plot outside and on the same side
+    # as one of the 1-sigma control limits
+    no_weco_3 = []
+    poss_range = np.arange(4, len(data), 1)
+    # weco_3 should look at a range of 3 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i, 1)
+        stat_check = []
+        for j in rangek:
+            stat_check.append(find_area(data, data[j], ddtype='time'))
+        if stat_check.count('u2') + stat_check.count('u3') >= 2 or \
+                                stat_check.count('d2') + stat_check.count('d3') >= 2:
+    return no_weco_3
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

@@ -47,19 +47,8 @@ def stats(data):
     med = np.median(data)
     qq3 = np.percentile(data, 75)
     std = np.std(data)
-    loa, uoa = outlier_limits(data)
-    out = []
-    for j in data:
-        if j < loa or j > uoa:
-            out.append(j)
-    if len(out) > 0:
-        outlier = out
-        outlier = [round(s, 2) for s in outlier]
-        outlier = sorted(outlier)
-    else:
-        outlier = []
 
-    return avg, qq1, med, qq3, std, outlier
+    return avg, qq1, med, qq3, std
 
 
 def area(data, type ='other'):

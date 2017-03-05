@@ -240,6 +240,24 @@ def weco_7(data):
     return no_weco_7
 
 
+def weco_8(data):
+    #Eight points in a row outside one sigma.
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_weco_8 = []
+    poss_range = np.arange(7, len(data), 1)
+    # weco_3 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1 or data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') == 8 :
+            no_weco_8.append(i)
+
+    return no_weco_8
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
@@ -263,6 +281,7 @@ print('weco_4 = '  ,weco_4(data))
 print('weco_5 = '  ,weco_5(data))
 print('weco_6 = '  ,weco_6(data))
 print('weco_7 = '  ,weco_7(data))
+print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

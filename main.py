@@ -26,18 +26,11 @@ def prepare(data):
     if medad == 0:
         loa = qq1 - (1.5 * IQR)
         uoa = qq3 + (1.5 * IQR)
-    out = []
-    for i in data:
-        if i < loa or i > uoa:
-            out.append(i)
-            data.remove(i)
-    if len(out) > 0:
-        outlier = out
-        outlier = [round(s, 2) for s in outlier]
-        outlier = sorted(outlier)
-    else:
-        outlier = []
-    return data, loa, uoa, outlier
+    raw = data
+
+    data_clean = [x for x in raw if x < uoa and x > loa]
+    outlier = [x for x in raw if x > uoa or x < loa]
+    return data_clean, loa, uoa, outlier
 
 
 def stats(data):
@@ -102,7 +95,7 @@ def find_area(data, point, ddtype ='other'):
     return areak
 
 
-def internal_checker(data, outrange, inrange, limit):
+"""def internal_checker(data, outrange, inrange, limit):
     #to be used inside weco and similar rules
 
     for_return = []
@@ -119,7 +112,7 @@ def internal_checker(data, outrange, inrange, limit):
         if tempak.count('u') >= inrange or tempak.count('d') >= inrange:
             for_return.append(i)
 
-    return no_weco_2
+    return no_weco_2"""
 
 
 def weco_1(data):
@@ -204,21 +197,26 @@ def weco_4(data):
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
-data = prepare(df.T30)
-data = clean_data(data)
+raw = df.T1
+data = prepare(raw)[0]
+
+outliers = prepare(raw)[3]
 
 
 
-
+g = 0
+for i in data:
+    print(g,i,sep='-')
+    g+=1
 
 
 print('weco_1 ='  ,weco_1(data))
 print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
 print('weco_4 = '  ,weco_4(data))
-print('outliers = ', stats(data)[5])
+print('outliers = ', outliers)
 
-print('Outlier Limits = ', (round(outlier_limits(data)[0],3),round(outlier_limits(data)[1],3)))
+print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 
 u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
 
@@ -232,4 +230,5 @@ plt.hlines(d_2,xmax = len(data), xmin= 0,colors='b')
 plt.hlines(u_3,xmax = len(data), xmin= 0,colors='r')
 plt.hlines(d_3,xmax = len(data), xmin= 0,colors='r')
 plt.axis([0,len(data),0,max(data) * 1.1])
+plt.xticks(list(range(0,len(data)+1)))
 plt.show()

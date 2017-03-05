@@ -162,7 +162,7 @@ def weco_3(data):
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_3 = []
     poss_range = np.arange(4, len(data), 1)
-    # weco_3 should look at a range of 3 >> poss_range
+    # weco_3 should look at a range of 5 >> poss_range
     for i in poss_range:
         rangek = np.arange(i - 4, i, 1)
         tempak = []
@@ -175,6 +175,28 @@ def weco_3(data):
             no_weco_3.append(i)
 
     return no_weco_3
+
+
+def weco_4(data):
+    #Eight out of the last eight points plot on the same side of the center
+    #line, or target value.
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_weco_4 = []
+    poss_range = np.arange(7, len(data), 1)
+    # weco_4 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 8 or tempak.count('d') == 8:
+            no_weco_4.append(i)
+
+    return no_weco_4
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
@@ -191,7 +213,7 @@ print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
 print('outliers = ', stats(data)[5])
 
-print('Outlier Limits = ', outlier_limits(data))
+print('Outlier Limits = ', (round(outlier_limits(data)[0],3),round(outlier_limits(data)[1],3)))
 
 u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
 

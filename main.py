@@ -120,6 +120,10 @@ def find_area(data, point, ddtype ='other'):
 
 
 def weco_1(data):
+    #The most recent point plots outside one of the 3-sigma control limits.
+    # If a point lies outside either of these limits, there is only a 0.3%
+    # chance that this was caused by the normal process.
+
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_1 = []
     indexak = 0
@@ -131,6 +135,9 @@ def weco_1(data):
 
 
 def weco_2(data):
+    #Two of the three most recent points plot outside and on the same side
+    # as one of the 2-sigma control limits.
+
     no_weco_2 = []
     poss_range = np.arange(2,len(data),1)
     #weco_2 should look at a range of 3 >> poss_range
@@ -165,7 +172,7 @@ print('Outlier Limits = ', outlier_limits(data))
 u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
 
 plt.figure(1)
-plt.plot(data)
+plt.plot(data, marker='o')
 plt.hlines(stats(data)[0],xmax = len(data), xmin= 0,colors='k')
 plt.hlines(u_1,xmax = len(data), xmin= 0,colors='c')
 plt.hlines(d_1,xmax = len(data), xmin= 0,colors='c')
@@ -173,5 +180,5 @@ plt.hlines(u_2,xmax = len(data), xmin= 0,colors='b')
 plt.hlines(d_2,xmax = len(data), xmin= 0,colors='b')
 plt.hlines(u_3,xmax = len(data), xmin= 0,colors='r')
 plt.hlines(d_3,xmax = len(data), xmin= 0,colors='r')
-plt.axis([0,len(data),0,max(data)])
+plt.axis([0,len(data),0,max(data) * 1.1])
 plt.show()

@@ -296,6 +296,66 @@ def weco_rules(data):
     return sorted(total_weco)
 
 
+def nelson_1(data):
+    # The most recent point plots outside one of the 3-sigma control limits.
+    # If a point lies outside either of these limits, there is only a 0.3%
+    # chance that this was caused by the normal process.
+
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_nelson_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_nelson_1.append(indexak)
+        indexak += 1
+    return no_nelson_1
+
+
+def nelson_2(data):
+    # Two of the three most recent points plot outside and on the same side
+    # as one of the 2-sigma control limits.
+
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_nelson_2 = []
+    poss_range = np.arange(2, len(data), 1)
+    # nelson_2 should look at a range of 3 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 2, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_2:
+                tempak.append('u')
+            if data[j] < d_2:
+                tempak.append('d')
+        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
+            no_nelson_2.append(i)
+
+    return no_nelson_2
+
+
+def nelson_3(data):
+    # Four of the five most recent points plot outside and on the same side
+    # as one of the 1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_nelson_3 = []
+    poss_range = np.arange(4, len(data), 1)
+    # weco_3 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('u')
+            if data[j] < d_1:
+                tempak.append('d')
+
+        if tempak.count('u') >= 4 or tempak.count('d') >= 4:
+            no_nelson_3.append(i)
+
+    return no_nelson_3
+
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 

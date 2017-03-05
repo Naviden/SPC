@@ -201,22 +201,19 @@ def weco_5(data):
 def weco_6(data):
     #Fifteen points in a row within one sigma
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
-    no_weco_4 = []
-    poss_range = np.arange(7, len(data), 1)
-    # weco_4 should look at a range of 8 >> poss_range
-    avg = stats(data)[0]
+    no_weco_6 = []
+    poss_range = np.arange(14, len(data), 1)
+
     for i in poss_range:
-        rangek = np.arange(i - 7, i + 1, 1)
+        rangek = np.arange(i - 14, i + 1, 1)
         tempak = []
         for j in rangek:
-            if data[j] > avg:
-                tempak.append('u')
-            if data[j] < avg:
-                tempak.append('d')
-        if tempak.count('u') == 8 or tempak.count('d') == 8:
-            no_weco_4.append(i)
+            if data[j] > d_1 and data[j] < u_1:
+                tempak.append('T')
+        if tempak.count('T') == 15 :
+            no_weco_6.append(i)
 
-    return no_weco_4
+    return no_weco_6
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
@@ -239,6 +236,7 @@ print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
 print('weco_4 = '  ,weco_4(data))
 print('weco_5 = '  ,weco_5(data))
+print('weco_6 = '  ,weco_6(data))
 print('outliers = ', outliers)
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

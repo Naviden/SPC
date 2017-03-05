@@ -95,8 +95,6 @@ def find_area(data, point, ddtype ='other'):
     return areak
 
 
-
-
 def weco_1(data):
     #The most recent point plots outside one of the 3-sigma control limits.
     # If a point lies outside either of these limits, there is only a 0.3%
@@ -159,7 +157,6 @@ def weco_3(data):
 def weco_4(data):
     #Eight out of the last eight points plot on the same side of the center
     #line, or target value.
-    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_weco_4 = []
     poss_range = np.arange(7, len(data), 1)
     # weco_4 should look at a range of 8 >> poss_range
@@ -194,12 +191,32 @@ def weco_5(data):
                     tempak.append('l')
                 else:
                     tempak.append('h')
-
             a+=1
         if tempak.count('l') == 5 or tempak.count('h') ==5:
             no_weco_5.append(i)
 
     return no_weco_5
+
+
+def weco_6(data):
+    #Fifteen points in a row within one sigma
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_weco_4 = []
+    poss_range = np.arange(7, len(data), 1)
+    # weco_4 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 8 or tempak.count('d') == 8:
+            no_weco_4.append(i)
+
+    return no_weco_4
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

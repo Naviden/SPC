@@ -166,14 +166,14 @@ def weco_3(data):
         rangek = np.arange(i - 4, i, 1)
         tempak = []
         for j in rangek:
-            if j > d_1:
+            if j > u_1:
                 tempak.append('u')
-            if j < u_2:
+            if j < d_1:
                 tempak.append('d')
-        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
-            no_weco_2.append(i)
+        if tempak.count('u') >= 4 or tempak.count('d') >= 4:
+            no_weco_3.append(i)
 
-    return no_weco_2
+    return no_weco_3
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

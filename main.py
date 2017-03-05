@@ -95,24 +95,6 @@ def find_area(data, point, ddtype ='other'):
     return areak
 
 
-"""def internal_checker(data, outrange, inrange, limit):
-    #to be used inside weco and similar rules
-
-    for_return = []
-    poss_range = np.arange(outrange-1, len(data), 1)
-
-    for i in poss_range:
-        rangek = np.arange(i - outrange-1, i, 1)
-        tempak = []
-        for j in rangek:
-            if data[j] > limit:
-                tempak.append('u')
-            if data[j] < limit:
-                tempak.append('d')
-        if tempak.count('u') >= inrange or tempak.count('d') >= inrange:
-            for_return.append(i)
-
-    return no_weco_2"""
 
 
 def weco_1(data):
@@ -160,13 +142,14 @@ def weco_3(data):
     poss_range = np.arange(4, len(data), 1)
     # weco_3 should look at a range of 5 >> poss_range
     for i in poss_range:
-        rangek = np.arange(i - 4, i, 1)
+        rangek = np.arange(i - 4, i + 1, 1)
         tempak = []
         for j in rangek:
             if data[j] > u_1:
                 tempak.append('u')
             if data[j] < d_1:
                 tempak.append('d')
+            print('i =', i, 'j=', j, '-', tempak)
         if tempak.count('u') >= 4 or tempak.count('d') >= 4:
             no_weco_3.append(i)
 
@@ -194,10 +177,34 @@ def weco_4(data):
 
     return no_weco_4
 
+
+def weco_5(data):
+    #Six points in a row increasing or decreasing.
+    no_weco_5 = []
+    poss_range = np.arange(5, len(data), 1)
+    # weco_5 should look at a range of 6 >> poss_range forces the code
+    #to ignore the first 5 points ad start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 7, i, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j-1]:
+                    tempak.append('l')
+                else:
+                    tempak.append('h')
+
+            a+=1
+        if tempak.count('l') == 5 or tempak.count('h') ==5:
+            no_weco_5.append(i)
+
+    return no_weco_5
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
-raw = df.T1
+raw = df.T30
 data = prepare(raw)[0]
 
 outliers = prepare(raw)[3]
@@ -214,6 +221,7 @@ print('weco_1 ='  ,weco_1(data))
 print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
 print('weco_4 = '  ,weco_4(data))
+print('weco_5 = '  ,weco_5(data))
 print('outliers = ', outliers)
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

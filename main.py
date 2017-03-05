@@ -6,7 +6,7 @@ import pandas as pd
 
 
 
-def prepare(data):
+def prepare(data, type = 'time'):
     #convert Series to list
     data = data.tolist()
     #Remove possible zeros
@@ -17,15 +17,33 @@ def prepare(data):
     IQR = qq3 - qq1
 
     medad = float(medcouple(data))
-    if medad > 0:
-        loa = qq1 - (1.5 * ((math.e ** (-4 * medad)) * IQR))
-        uoa = qq3 + (1.5 * ((math.e ** (3 * medad)) * IQR))
-    if medad <= 0:
-        loa = qq1 - (1.5 * ((math.e ** (-3 * medad)) * IQR))
-        uoa = qq3 + (1.5 * ((math.e ** (4 * medad)) * IQR))
-    if medad == 0:
-        loa = qq1 - (1.5 * IQR)
-        uoa = qq3 + (1.5 * IQR)
+    if type =='time':
+        if medad > 0:
+            loa = qq1 - (1.5 * ((math.e ** (-4 * medad)) * IQR))
+            if loa < 0:
+                loa = 0
+            uoa = qq3 + (1.5 * ((math.e ** (3 * medad)) * IQR))
+        if medad <= 0:
+            loa = qq1 - (1.5 * ((math.e ** (-3 * medad)) * IQR))
+            if loa < 0:
+                loa = 0
+            uoa = qq3 + (1.5 * ((math.e ** (4 * medad)) * IQR))
+        if medad == 0:
+            loa = qq1 - (1.5 * IQR)
+            if loa < 0:
+                loa = 0
+            uoa = qq3 + (1.5 * IQR)
+    else:
+        if medad > 0:
+            loa = qq1 - (1.5 * ((math.e ** (-4 * medad)) * IQR))
+            uoa = qq3 + (1.5 * ((math.e ** (3 * medad)) * IQR))
+        if medad <= 0:
+            loa = qq1 - (1.5 * ((math.e ** (-3 * medad)) * IQR))
+            uoa = qq3 + (1.5 * ((math.e ** (4 * medad)) * IQR))
+        if medad == 0:
+            loa = qq1 - (1.5 * IQR)
+            uoa = qq3 + (1.5 * IQR)
+
     raw = data
 
     data_clean = [x for x in raw if x < uoa and x > loa]

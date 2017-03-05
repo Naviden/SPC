@@ -146,9 +146,9 @@ def weco_2(data):
         rangek = np.arange(i-2, i, 1)
         tempak = []
         for j in rangek:
-            if j > d_2:
+            if j > u_2:
                 tempak.append('u')
-            if j < u_2:
+            if j < d_2:
                 tempak.append('d')
         if tempak.count('u') >= 2 or tempak.count('d') >= 2:
             no_weco_2.append(i)
@@ -164,12 +164,16 @@ def weco_3(data):
     # weco_3 should look at a range of 3 >> poss_range
     for i in poss_range:
         rangek = np.arange(i - 4, i, 1)
-        stat_check = []
+        tempak = []
         for j in rangek:
-            stat_check.append(find_area(data, data[j], ddtype='time'))
-        if stat_check.count('u2') + stat_check.count('u3') >= 2 or \
-                                stat_check.count('d2') + stat_check.count('d3') >= 2:
-    return no_weco_3
+            if j > d_1:
+                tempak.append('u')
+            if j < u_2:
+                tempak.append('d')
+        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
+            no_weco_2.append(i)
+
+    return no_weco_2
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

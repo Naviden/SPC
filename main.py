@@ -215,6 +215,31 @@ def weco_6(data):
 
     return no_weco_6
 
+
+def weco_7(data):
+    #Fourteen points in a row alternating direction
+    no_weco_7 = []
+    poss_range = np.arange(13, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 14, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j-1]:
+                    tempak.append('l')
+                else:
+                    tempak.append('h')
+            a+=1
+        alt_1 = ['l','h','l','h','l','h','l','h','l','h','l','h','l']
+        alt_2 = ['h','l', 'h','l','h','l','h','l','h','l','h','l','h']
+        if tempak == alt_1 or tempak == alt_2:
+            no_weco_7.append(i)
+
+    return no_weco_7
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
@@ -237,6 +262,7 @@ print('weco_3 = '  ,weco_3(data))
 print('weco_4 = '  ,weco_4(data))
 print('weco_5 = '  ,weco_5(data))
 print('weco_6 = '  ,weco_6(data))
+print('weco_7 = '  ,weco_7(data))
 print('outliers = ', outliers)
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

@@ -121,7 +121,7 @@ def weco_2(data):
     poss_range = np.arange(2,len(data),1)
     #weco_2 should look at a range of 3 >> poss_range
     for i in poss_range:
-        rangek = np.arange(i-2, i, 1)
+        rangek = np.arange(i-2, i + 1, 1)
         tempak = []
         for j in rangek:
             if data[j] > u_2:
@@ -149,7 +149,7 @@ def weco_3(data):
                 tempak.append('u')
             if data[j] < d_1:
                 tempak.append('d')
-            print('i =', i, 'j=', j, '-', tempak)
+
         if tempak.count('u') >= 4 or tempak.count('d') >= 4:
             no_weco_3.append(i)
 
@@ -165,7 +165,7 @@ def weco_4(data):
     # weco_4 should look at a range of 8 >> poss_range
     avg = stats(data)[0]
     for i in poss_range:
-        rangek = np.arange(i - 7, i, 1)
+        rangek = np.arange(i - 7, i + 1, 1)
         tempak = []
         for j in rangek:
             if data[j] > avg:
@@ -185,7 +185,7 @@ def weco_5(data):
     # weco_5 should look at a range of 6 >> poss_range forces the code
     #to ignore the first 5 points ad start from 6th point
     for i in poss_range:
-        rangek = np.arange(i - 7, i, 1)
+        rangek = np.arange(i - 7, i + 1, 1)
         tempak = []
         a = 0
         for j in rangek:

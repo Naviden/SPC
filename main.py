@@ -11,11 +11,6 @@ def prepare(data):
     data = data.tolist()
     #Remove possible zeros
     data = list(filter(lambda a: a != float(0), data))
-    return data
-
-
-
-def outlier_limits(data):
 
     qq1 = np.percentile(data, 25)
     qq3 = np.percentile(data, 75)
@@ -31,19 +26,18 @@ def outlier_limits(data):
     if medad == 0:
         loa = qq1 - (1.5 * IQR)
         uoa = qq3 + (1.5 * IQR)
-
-    return loa,uoa
-
-
-def clean_data(data):
-    #cleans data from outliers
-
-    loa, uoa = outlier_limits(data)
-
+    out = []
     for i in data:
         if i < loa or i > uoa:
+            out.append(i)
             data.remove(i)
-    return data
+    if len(out) > 0:
+        outlier = out
+        outlier = [round(s, 2) for s in outlier]
+        outlier = sorted(outlier)
+    else:
+        outlier = []
+    return data, loa, uoa, outlier
 
 
 def stats(data):
@@ -117,6 +111,26 @@ def find_area(data, point, ddtype ='other'):
         areak = 'd3'
 
     return areak
+
+
+def internal_checker(data, outrange, inrange, limit):
+    #to be used inside weco and similar rules
+
+    for_return = []
+    poss_range = np.arange(outrange-1, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - outrange-1, i, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > limit:
+                tempak.append('u')
+            if data[j] < limit:
+                tempak.append('d')
+        if tempak.count('u') >= inrange or tempak.count('d') >= inrange:
+            for_return.append(i)
+
+    return no_weco_2
 
 
 def weco_1(data):
@@ -201,7 +215,8 @@ def weco_4(data):
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
-data = prepare(df.T1)
+data = prepare(df.T30)
+data = clean_data(data)
 
 
 
@@ -211,6 +226,7 @@ data = prepare(df.T1)
 print('weco_1 ='  ,weco_1(data))
 print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
+print('weco_4 = '  ,weco_4(data))
 print('outliers = ', stats(data)[5])
 
 print('Outlier Limits = ', (round(outlier_limits(data)[0],3),round(outlier_limits(data)[1],3)))

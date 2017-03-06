@@ -556,6 +556,22 @@ def aiag_4(data):
     return no_aiag_4
 
 
+def aiag_rules(data):
+    a1 = aiag_1(data)
+    a2 = aiag_2(data)
+    a3 = aiag_3(data)
+    a4 = aiag_4(data)
+
+
+    a_list =[a1, a2, a3, a4]
+    total_aiag = []
+    for i in a_list:
+        for j in i:
+            if j not in total_aiag:
+                total_aiag.append(j)
+    return sorted(total_aiag)
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 
@@ -583,6 +599,7 @@ print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
 print('WECO POINTS = ',weco_rules(data))
 print('NELSON POINTS = ',nelson_rules(data))
+print('AIAG POINTS = ',aiag_rules(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

@@ -516,7 +516,7 @@ def aiag_3(data):
     #Seven points in a row increasing
     no_aiag_3 = []
     poss_range = np.arange(6, len(data), 1)
-    # weco_5 should look at a range of 6 >> poss_range forces the code
+    # aiag_3 should look at a range of 6 >> poss_range forces the code
     # to ignore the first 5 points ad start from 6th point
     for i in poss_range:
         rangek = np.arange(i - 6, i + 1, 1)
@@ -532,6 +532,29 @@ def aiag_3(data):
             no_aiag_3.append(i)
 
     return no_aiag_3
+
+
+def aiag_4(data):
+    # Seven points in a row decreasing
+    no_aiag_4 = []
+    poss_range = np.arange(6, len(data), 1)
+    # aiag_4 should look at a range of 6 >> poss_range forces the code
+    # to ignore the first 5 points ad start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 6, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j - 1]:
+                    tempak.append('l')
+
+            a += 1
+        if tempak.count('l') == 7:
+            no_aiag_4.append(i)
+
+    return no_aiag_4
+
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

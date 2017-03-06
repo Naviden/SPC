@@ -627,7 +627,7 @@ def juran_4(data):
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_juran_4 = []
     poss_range = np.arange(4, len(data), 1)
-    # weco_3 should look at a range of 5 >> poss_range
+    # juran_4 should look at a range of 5 >> poss_range
     for i in poss_range:
         rangek = np.arange(i - 4, i + 1, 1)
         tempak = []
@@ -639,6 +639,25 @@ def juran_4(data):
             no_juran_4.append(i)
 
     return no_juran_4
+
+
+def juran_5(data):
+    #Four of five points is above -1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_juran_5 = []
+    poss_range = np.arange(4, len(data), 1)
+    # juran_5 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4 :
+            no_juran_5.append(i)
+
+    return no_juran_5
 
 
 

@@ -572,6 +572,23 @@ def aiag_rules(data):
     return sorted(total_aiag)
 
 
+def juran_1(data):
+    #One of one point is outside of +- 3-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_juran_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_juran_1.append(indexak)
+        indexak += 1
+    return no_juran_1
+
+
+
+
+
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 

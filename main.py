@@ -659,7 +659,47 @@ def juran_5(data):
 
     return no_juran_5
 
+def juran_6(data):
+    #Six points in a row increasing
+    no_juran_6 = []
+    poss_range = np.arange(5, len(data), 1)
+    # juran_6 should look at a range of 6 >> poss_range forces the code
+    # to ignore the first 5 points ad start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 5, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] > data[j - 1]:
+                    tempak.append('h')
 
+            a += 1
+        if tempak.count('h') == 6:
+            no_juran_6.append(i)
+
+    return no_juran_6
+
+def juran_7(data):
+    #Six points in a row decreasing
+    no_juran_7 = []
+    poss_range = np.arange(5, len(data), 1)
+    # juran_7 should look at a range of 6 >> poss_range forces the code
+    # to ignore the first 5 points ad start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 5, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j - 1]:
+                    tempak.append('l')
+
+            a += 1
+        if tempak.count('l') == 6:
+            no_juran_7.append(i)
+
+    return no_juran_7
 
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')

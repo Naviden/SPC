@@ -711,7 +711,7 @@ def RSA(data, type = 'all'):
 
         r_list = [r1, r2, r3]
         data_vector = []
-        for i in data:
+        for i in range(len(data)):
             item_vector = []
             for j in r_list:
                 if i in j:
@@ -778,6 +778,7 @@ print('outliers = ', outliers)
 print('WECO POINTS = ',weco_rules(data))
 print('NELSON POINTS = ',nelson_rules(data))
 print('AIAG POINTS = ',aiag_rules(data))
+print('RSA = ', RSA(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

@@ -745,6 +745,27 @@ def juran_9(data):
     return no_juran_9
 
 
+def juran_rules(data):
+    j1 = juran_1(data)
+    j2 = juran_2(data)
+    j3 = juran_3(data)
+    j4 = juran_4(data)
+    j5 = juran_5(data)
+    j6 = juran_6(data)
+    j7 = juran_7(data)
+    j8 = juran_8(data)
+    j9 = juran_9(data)
+
+
+    j_list =[j1, j2, j3, j4, j5, j6, j7, j8, j9]
+    total_juran = []
+    for i in j_list:
+        for j in i:
+            if j not in total_juran:
+                total_juran.append(j)
+    return sorted(total_juran)
+
+
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag']
     if type == 'all':

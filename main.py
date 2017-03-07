@@ -725,6 +725,24 @@ def juran_8(data):
     return no_juran_8
 
 
+def juran_9(data):
+    # Eight points in a row on both sides of center line, none in zone C
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_juran_9 = []
+    poss_range = np.arange(7, len(data), 1)
+    # juran_9 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_2 or data[j] < d_2:
+                tempak.append('T')
+
+        if tempak.count('T') == 8 :
+            no_juran_9.append(i)
+
+    return no_juran_9
 
 
 def RSA(data, type = 'all'):

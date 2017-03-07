@@ -659,6 +659,7 @@ def juran_5(data):
 
     return no_juran_5
 
+
 def juran_6(data):
     #Six points in a row increasing
     no_juran_6 = []
@@ -680,6 +681,7 @@ def juran_6(data):
 
     return no_juran_6
 
+
 def juran_7(data):
     #Six points in a row decreasing
     no_juran_7 = []
@@ -700,6 +702,29 @@ def juran_7(data):
             no_juran_7.append(i)
 
     return no_juran_7
+
+
+def juran_8(data):
+    # Nine out of the last nine points plot on the same side of the center
+    # line, or target value.
+    no_juran_8= []
+    poss_range = np.arange(8, len(data), 1)
+    # juran_8 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 8, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 9 or tempak.count('d') == 9:
+            no_juran_8.append(i)
+
+    return no_juran_8
+
+
 
 
 def RSA(data, type = 'all'):

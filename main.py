@@ -767,13 +767,14 @@ def juran_rules(data):
 
 
 def RSA(data, type = 'all'):
-    types = ['weco', 'nelson', 'aiag']
+    types = ['weco', 'nelson', 'aiag','juran']
     if type == 'all':
         r1 = weco_rules(data)
         r2 = nelson_rules(data)
         r3 = aiag_rules(data)
+        r4 = juran_rules(data)
 
-        r_list = [r1, r2, r3]
+        r_list = [r1, r2, r3, r4]
         data_vector = []
         for i in range(len(data)):
             item_vector = []
@@ -807,6 +808,9 @@ def RSA(data, type = 'all'):
 
     if type == 'aiag':
         final_index = aiag_rules(data)
+
+    if type == 'juran':
+        final_index = juran_rules(data)
 
     return final_index
 

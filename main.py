@@ -701,6 +701,55 @@ def juran_7(data):
 
     return no_juran_7
 
+
+def RSA(data, type = 'all'):
+    types = ['weco', 'nelson', 'aiag']
+    if type == 'all':
+        r1 = weco_rules(data)
+        r2 = nelson_rules(data)
+        r3 = aiag_rules(data)
+
+        r_list = [r1, r2, r3]
+        data_vector = []
+        for i in data:
+            item_vector = []
+            for j in r_list:
+                if i in j:
+                    item_vector.append(1)
+                else:
+                    item_vector.append(0)
+            data_vector.append(item_vector)
+        final = []
+        for vector in data_vector:
+            if np.sum(vector) >= (len(r_list)/2):
+                final.append('T')
+            else:
+                final.append('F')
+        final_index = []
+        ind = 0
+        for m in final:
+            if m =='T':
+                final_index.append(ind)
+            else:
+                pass
+            ind +=1
+
+
+    if type == 'weco':
+        final_index = weco_rules(data)
+
+    if type == 'nelson':
+        final_index = weco_rules(data)
+
+    if type == 'aiag':
+        final_index = weco_rules(data)
+
+    return final_index
+
+
+
+
+
 #TEST DATA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 df = pd.read_excel('REPORT_LCZ11.xlsx', sheetname='convertido')
 

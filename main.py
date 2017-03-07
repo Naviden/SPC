@@ -764,10 +764,10 @@ def RSA(data, type = 'all'):
         final_index = weco_rules(data)
 
     if type == 'nelson':
-        final_index = weco_rules(data)
+        final_index = nelson_rules(data)
 
     if type == 'aiag':
-        final_index = weco_rules(data)
+        final_index = aiag_rules(data)
 
     return final_index
 
@@ -791,7 +791,7 @@ for i in data:
     g+=1
 
 
-print('weco_1 ='  ,weco_1(data))
+print('weco_1 = '  ,weco_1(data))
 print('weco_2 = '  ,weco_2(data))
 print('weco_3 = '  ,weco_3(data))
 print('weco_4 = '  ,weco_4(data))
@@ -800,10 +800,10 @@ print('weco_6 = '  ,weco_6(data))
 print('weco_7 = '  ,weco_7(data))
 print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
-print('WECO POINTS = ',weco_rules(data))
-print('NELSON POINTS = ',nelson_rules(data))
-print('AIAG POINTS = ',aiag_rules(data))
-print('RSA = ', RSA(data))
+print('WECO POINTS =   ', weco_rules(data))
+print('NELSON POINTS = ', nelson_rules(data))
+print('AIAG POINTS =   ', aiag_rules(data))
+print('RSA = ', RSA(data, type='nelson'))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

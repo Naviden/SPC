@@ -777,6 +777,7 @@ def hughes_1(data):
         indexak += 1
     return no_hughes_1
 
+
 def hughes_2(data):
     #Two of three points above 2-sigma control limits
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
@@ -813,6 +814,25 @@ def hughes_3(data):
             no_hughes_3.append(i)
 
     return no_hughes_3
+
+
+def hughes_4(data):
+    #Three of seven points above 2-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_hughes_4 = []
+    poss_range = np.arange(6, len(data), 1)
+    # hughes_4 should look at a range of 7 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 6, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_2:
+                tempak.append('T')
+
+        if tempak.count('T') >= 3:
+            no_hughes_4.append(i)
+
+    return no_hughes_4
 
 
 def RSA(data, type = 'all'):

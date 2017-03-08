@@ -766,6 +766,19 @@ def juran_rules(data):
     return sorted(total_juran)
 
 
+def hughes_1(data):
+    #One of one point is outside of +- 3-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_hughes_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_hughes_1.append(indexak)
+        indexak += 1
+    return no_hughes_1
+
+
+
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran']
     if type == 'all':
@@ -846,7 +859,8 @@ print('outliers = ', outliers)
 print('WECO POINTS =   ', weco_rules(data))
 print('NELSON POINTS = ', nelson_rules(data))
 print('AIAG POINTS =   ', aiag_rules(data))
-print('RSA = ', RSA(data, type='nelson'))
+print('JURAN POINTS =  ', juran_rules(data))
+print('RSA = ', RSA(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 

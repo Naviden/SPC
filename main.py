@@ -1051,6 +1051,26 @@ def hughes_15(data):
     return no_hughes_15
 
 
+def hughes_rules(data):
+    h1 = hughes_1(data)
+    h2 = hughes_2(data)
+    h3 = hughes_3(data)
+    h4 = hughes_4(data)
+    h5 = hughes_5(data)
+    h6 = hughes_6(data)
+    h7 = hughes_7(data)
+    h8 = hughes_8(data)
+    h9 = hughes_9(data)
+
+
+    h_list =[h1, h2, h3, h4, h5, h6, h7, h8, h9]
+    total_hughes = []
+    for i in h_list:
+        for j in i:
+            if j not in total_hughes:
+                total_hughes.append(j)
+    return sorted(total_hughes)
+
 
 
 

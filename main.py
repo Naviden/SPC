@@ -994,6 +994,23 @@ def hughes_12(data):
     return no_hughes_12
 
 
+def hughes_13(data):
+    #Ten of eleven are below center line
+    no_hughes_13 = []
+    poss_range = np.arange(10, len(data), 1)
+    # hughes_13 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 10, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < avg:
+                tempak.append('T')
+
+        if tempak.count('T') == 10:
+            no_hughes_13.append(i)
+
+    return no_hughes_13
 
 
 

@@ -3,8 +3,9 @@ import math
 from statsmodels.stats.stattools import medcouple
 import matplotlib.pyplot as plt
 import pandas as pd
+from time import time
 
-
+t0 = time()
 
 def prepare(data, type = 'time'):
     #convert Series to list
@@ -930,6 +931,27 @@ def hughes_9(data):
     return no_hughes_9
 
 
+def hughes_10(data):
+    #Seven points in a row increasing
+    no_hughes_10 = []
+    poss_range = np.arange(6, len(data), 1)
+    # hughes_10 should look at a range of 6 >> poss_range forces the code
+    # to ignore the first 7 points and start from 6th point
+    for i in poss_range:
+        rangek = np.arange(i - 6, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] > data[j - 1]:
+                    tempak.append('h')
+
+            a += 1
+        if tempak.count('h') == 6:
+            no_hughes_10.append(i)
+
+    return no_hughes_10
+
 
 
 
@@ -1022,8 +1044,13 @@ print('JURAN POINTS =  ', juran_rules(data))
 print('RSA = ', RSA(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
+print()
+print('Run time = ',round(time()-t0,2),'seconds ')
 
-u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
+
+
+
+"""u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
 
 plt.figure(1)
 plt.plot(data, marker='o')
@@ -1036,4 +1063,4 @@ plt.hlines(u_3,xmax = len(data), xmin= 0,colors='r')
 plt.hlines(d_3,xmax = len(data), xmin= 0,colors='r')
 plt.axis([0,len(data),0,max(data) * 1.1])
 plt.xticks(list(range(0,len(data)+1)))
-plt.show()
+plt.show()"""

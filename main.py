@@ -1013,6 +1013,46 @@ def hughes_13(data):
     return no_hughes_13
 
 
+def hughes_14(data):
+    #Twelve of fourteen are above center line
+    no_hughes_14 = []
+    poss_range = np.arange(13, len(data), 1)
+    # hughes_14 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 13, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('T')
+
+        if tempak.count('T') == 12:
+            no_hughes_14.append(i)
+
+    return no_hughes_14
+
+
+def hughes_15(data):
+    #Ten of eleven are below center line
+    no_hughes_15 = []
+    poss_range = np.arange(13, len(data), 1)
+    # hughes_15 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 13, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < avg:
+                tempak.append('T')
+
+        if tempak.count('T') == 10:
+            no_hughes_15.append(i)
+
+    return no_hughes_15
+
+
+
+
 
 
 def RSA(data, type = 'all'):

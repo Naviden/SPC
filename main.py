@@ -872,6 +872,7 @@ def hughes_6(data):
 
     return no_hughes_6
 
+
 def hughes_7(data):
     #Four of ten points below -2-sigma control limits
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
@@ -889,6 +890,37 @@ def hughes_7(data):
             no_hughes_7.append(i)
 
     return no_hughes_7
+
+
+def hughes_8(data):
+    #Four of five points is above 1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_hughes_8 = []
+    poss_range = np.arange(4, len(data), 1)
+    # hughes_8 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4:
+            no_hughes_8.append(i)
+
+    return no_hughes_8
+
+
+
+
+
+
+
+
+
+
+
+
 
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran']

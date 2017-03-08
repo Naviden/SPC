@@ -840,7 +840,7 @@ def hughes_5(data):
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
     no_hughes_5 = []
     poss_range = np.arange(6, len(data), 1)
-    # hughes_3 should look at a range of 3 >> poss_range
+    # hughes_5 should look at a range of 7 >> poss_range
     for i in poss_range:
         rangek = np.arange(i - 6, i + 1, 1)
         tempak = []
@@ -849,9 +849,9 @@ def hughes_5(data):
                 tempak.append('T')
 
         if tempak.count('T') >= 3:
-            no_hughes_3.append(i)
+            no_hughes_5.append(i)
 
-    return no_hughes_3
+    return no_hughes_5
 
 
 def RSA(data, type = 'all'):

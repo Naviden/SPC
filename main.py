@@ -1202,8 +1202,42 @@ def gitlow_7(data):
     return no_gitlow_7
 
 
+def gitlow_8(data):
+    #Wight of Eight are above center line
+    no_gitlow_8 = []
+    poss_range = np.arange(7, len(data), 1)
+    # gitlow_8 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('T')
+
+        if tempak.count('T') == 8:
+            no_gitlow_8.append(i)
+
+    return no_gitlow_8
 
 
+def gitlow_9(data):
+    #Eight of eight are below center line
+    no_gitlow_9 = []
+    poss_range = np.arange(7, len(data), 1)
+    # gitlow_9 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < avg:
+                tempak.append('T')
+
+        if tempak.count('T') == 8:
+            no_gitlow_9.append(i)
+
+    return no_gitlow_9
 
 
 

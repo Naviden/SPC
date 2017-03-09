@@ -1397,13 +1397,13 @@ def duncan_7(data):
 
 
 def duncan_rules(data):
-    d1 = gitlow_1(data)
-    d2 = gitlow_2(data)
-    d3 = gitlow_3(data)
-    d4 = gitlow_4(data)
-    d5 = gitlow_5(data)
-    d6 = gitlow_6(data)
-    d7 = gitlow_7(data)
+    d1 = duncan_1(data)
+    d2 = duncan_2(data)
+    d3 = duncan_3(data)
+    d4 = duncan_4(data)
+    d5 = duncan_5(data)
+    d6 = duncan_6(data)
+    d7 = duncan_7(data)
 
 
 

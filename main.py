@@ -1354,6 +1354,46 @@ def duncan_5(data):
     return no_duncan_5
 
 
+def duncan_6(data):
+    #Seven points in a row increasing
+    no_duncan_6 = []
+    poss_range = np.arange(6, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 6, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] > data[j - 1]:
+                    tempak.append('h')
+
+            a += 1
+        if tempak.count('h') == 7:
+            no_duncan_6.append(i)
+
+    return no_duncan_6
+
+
+def duncan_7(data):
+    #Seven points in a row decreasing
+    no_duncan_7 = []
+    poss_range = np.arange(6, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 6, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j - 1]:
+                    tempak.append('l')
+
+            a += 1
+        if tempak.count('l') == 7:
+            no_duncan_7.append(i)
+
+    return no_duncan_7
 
 
 

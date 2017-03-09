@@ -1061,9 +1061,14 @@ def hughes_rules(data):
     h7 = hughes_7(data)
     h8 = hughes_8(data)
     h9 = hughes_9(data)
+    h10 = hughes_10(data)
+    h11 = hughes_11(data)
+    h12 = hughes_12(data)
+    h13 = hughes_13(data)
+    h14 = hughes_14(data)
+    h15 = hughes_15(data)
 
-
-    h_list =[h1, h2, h3, h4, h5, h6, h7, h8, h9]
+    h_list =[h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15]
     total_hughes = []
     for i in h_list:
         for j in i:
@@ -1238,6 +1243,27 @@ def gitlow_9(data):
             no_gitlow_9.append(i)
 
     return no_gitlow_9
+
+
+def gitlow_rules(data):
+    g1 = gitlow_1(data)
+    g2 = gitlow_2(data)
+    g3 = gitlow_3(data)
+    g4 = gitlow_4(data)
+    g5 = gitlow_5(data)
+    g6 = gitlow_6(data)
+    g7 = gitlow_7(data)
+    g8 = gitlow_8(data)
+    g9 = gitlow_9(data)
+
+
+    g_list =[g1, g2, g3, g4, g5, g6, g7, g8, g9]
+    total_gitlow = []
+    for i in g_list:
+        for j in i:
+            if j not in total_gitlow:
+                total_gitlow.append(j)
+    return sorted(total_gitlow)
 
 
 

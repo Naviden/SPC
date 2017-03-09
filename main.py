@@ -947,7 +947,7 @@ def hughes_10(data):
                     tempak.append('h')
 
             a += 1
-        if tempak.count('h') == 6:
+        if tempak.count('h') == 7:
             no_hughes_10.append(i)
 
     return no_hughes_10
@@ -969,7 +969,7 @@ def hughes_11(data):
                     tempak.append('l')
 
             a += 1
-        if tempak.count('l') == 6:
+        if tempak.count('l') == 7:
             no_hughes_11.append(i)
 
     return no_hughes_11
@@ -1158,6 +1158,53 @@ def gitlow_5(data):
             no_gitlow_5.append(i)
 
     return no_gitlow_5
+
+
+def gitlow_6(data):
+    #Eight points in a row increasing
+    no_gitlow_6 = []
+    poss_range = np.arange(7, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] > data[j - 1]:
+                    tempak.append('h')
+
+            a += 1
+        if tempak.count('h') == 8:
+            no_gitlow_6.append(i)
+
+    return no_gitlow_6
+
+
+def gitlow_7(data):
+    #Eight points in a row decreasing
+    no_gitlow_7 = []
+    poss_range = np.arange(7, len(data), 1)
+
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        a = 0
+        for j in rangek:
+            if a != 0:
+                if data[j] < data[j - 1]:
+                    tempak.append('l')
+
+            a += 1
+        if tempak.count('l') == 8:
+            no_gitlow_7_.append(i)
+
+    return no_gitlow_7
+
+
+
+
+
 
 
 def RSA(data, type = 'all'):

@@ -1266,6 +1266,22 @@ def gitlow_rules(data):
     return sorted(total_gitlow)
 
 
+def duncan_1(data):
+    # One of one point is outside of +- 3-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_duncan_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_duncn_1.append(indexak)
+        indexak += 1
+    return no_duncan_1
+
+
+
+
+
+
 
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran','hughes']
@@ -1352,12 +1368,14 @@ print('weco_6 = '  ,weco_6(data))
 print('weco_7 = '  ,weco_7(data))
 print('weco_8 = '  ,weco_8(data))
 print('outliers = ', outliers)
+print()
 print('WECO POINTS =   ', weco_rules(data))
 print('NELSON POINTS = ', nelson_rules(data))
 print('AIAG POINTS =   ', aiag_rules(data))
 print('JURAN POINTS =  ', juran_rules(data))
 print('HUGHES POINTS = ', hughes_rules(data))
-print('RSA = ', RSA(data))
+print('GITLOW POINTS = ', gitlow_rules(data))
+print('RSA =           ', RSA(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 print()

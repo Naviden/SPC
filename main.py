@@ -1275,8 +1275,9 @@ def RSA(data, type = 'all'):
         r3 = aiag_rules(data)
         r4 = juran_rules(data)
         r5 = hughes_rules(data)
+        r6 = gitlow_rules(data)
 
-        r_list = [r1, r2, r3, r4, r5]
+        r_list = [r1, r2, r3, r4, r5, r6]
         data_vector = []
         for i in range(len(data)):
             item_vector = []
@@ -1316,6 +1317,9 @@ def RSA(data, type = 'all'):
 
     if type == 'hughes':
         final_index = hughes_rules(data)
+
+    if type == 'gitlow':
+        final_index = gitlow_rules(data)
 
     return final_index
 

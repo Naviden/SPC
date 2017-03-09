@@ -1072,18 +1072,29 @@ def hughes_rules(data):
     return sorted(total_hughes)
 
 
+def gitlow(data):
+    #One of one point is outside of +- 3-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_gitlow_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_gitlow_1.append(indexak)
+        indexak += 1
+    return no_gitlow_1
 
 
 
 def RSA(data, type = 'all'):
-    types = ['weco', 'nelson', 'aiag','juran']
+    types = ['weco', 'nelson', 'aiag','juran','hughes']
     if type == 'all':
         r1 = weco_rules(data)
         r2 = nelson_rules(data)
         r3 = aiag_rules(data)
         r4 = juran_rules(data)
+        r5 = hughes_rules(data)
 
-        r_list = [r1, r2, r3, r4]
+        r_list = [r1, r2, r3, r4, r5]
         data_vector = []
         for i in range(len(data)):
             item_vector = []
@@ -1121,6 +1132,9 @@ def RSA(data, type = 'all'):
     if type == 'juran':
         final_index = juran_rules(data)
 
+    if type == 'hughes':
+        final_index = hughes_rules(data)
+
     return final_index
 
 
@@ -1156,6 +1170,7 @@ print('WECO POINTS =   ', weco_rules(data))
 print('NELSON POINTS = ', nelson_rules(data))
 print('AIAG POINTS =   ', aiag_rules(data))
 print('JURAN POINTS =  ', juran_rules(data))
+print('HUGHES POINTS = ', hughes_rules(data))
 print('RSA = ', RSA(data))
 
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

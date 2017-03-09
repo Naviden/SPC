@@ -1396,6 +1396,28 @@ def duncan_7(data):
     return no_duncan_7
 
 
+def duncan_rules(data):
+    d1 = gitlow_1(data)
+    d2 = gitlow_2(data)
+    d3 = gitlow_3(data)
+    d4 = gitlow_4(data)
+    d5 = gitlow_5(data)
+    d6 = gitlow_6(data)
+    d7 = gitlow_7(data)
+
+
+
+    d_list =[d1, d2, d3, d4, d5, d6, d7]
+    total_duncan = []
+    for i in d_list:
+        for j in i:
+            if j not in total_duncan:
+                total_duncan.append(j)
+    return sorted(total_duncan)
+
+
+
+
 
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran','hughes']

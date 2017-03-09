@@ -1278,6 +1278,80 @@ def duncan_1(data):
     return no_duncan_1
 
 
+def duncan_2(data):
+    #Two of three points above 2-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_duncan_2 = []
+    poss_range = np.arange(2, len(data), 1)
+    # duncan_2 should look at a range of 3 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 2, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_2:
+                tempak.append('T')
+
+        if tempak.count('T') >= 2 :
+            no_duncan_2.append(i)
+
+    return no_duncan_2
+
+
+def duncan_3(data):
+    #Two of three points below -2-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_duncan_3 = []
+    poss_range = np.arange(2, len(data), 1)
+    # duncan_3 should look at a range of 3 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 2, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < d_2:
+                tempak.append('T')
+
+        if tempak.count('T') >= 2:
+            no_duncan_3.append(i)
+
+    return no_duncan_3
+
+
+def duncan_4(data):
+    #Four of five points is above 1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_duncan_4 = []
+    poss_range = np.arange(4, len(data), 1)
+    # duncan_4 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4:
+            no_duncan_4.append(i)
+
+    return no_duncan_4
+
+
+def duncan_5(data):
+    #Four of five points is below -1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_duncan_5 = []
+    poss_range = np.arange(4, len(data), 1)
+    # duncan_5 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4:
+            no_duncan_5.append(i)
+
+    return no_duncan_5
 
 
 
@@ -1376,7 +1450,7 @@ print('JURAN POINTS =  ', juran_rules(data))
 print('HUGHES POINTS = ', hughes_rules(data))
 print('GITLOW POINTS = ', gitlow_rules(data))
 print('RSA =           ', RSA(data))
-
+print()
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))
 print()
 print('Run time = ',round(time()-t0,2),'seconds ')

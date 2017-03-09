@@ -1428,6 +1428,23 @@ def westgard_1(data):
     return no_westgard_1
 
 
+def westgard_2(data):
+    #Two of two points outside +-2-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_westgard_2 = []
+    poss_range = np.arange(1, len(data), 1)
+    # westgard_2 should look at a range of 3 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 1, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_2:
+                tempak.append('T')
+
+        if tempak.count('T') >= 2:
+            no_westgard_2.append(i)
+
+    return no_westgard_2
 
 
 

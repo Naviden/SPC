@@ -1439,12 +1439,17 @@ def westgard_2(data):
         tempak = []
         for j in rangek:
             if data[j] > u_2:
-                tempak.append('T')
-
-        if tempak.count('T') >= 2:
+                tempak.append('u')
+            if data[j] < d_2:
+                tempak.append('d')
+        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
             no_westgard_2.append(i)
 
-    return no_westgard_2
+    return westgard_2()
+
+def westgard_3(data):
+    #Four of four points outside +-1-sigma control limits
+
 
 
 

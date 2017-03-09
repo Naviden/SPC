@@ -1273,7 +1273,7 @@ def duncan_1(data):
     indexak = 0
     for i in data:
         if i < d_3 or i > u_3:
-            no_duncn_1.append(indexak)
+            no_duncan_1.append(indexak)
         indexak += 1
     return no_duncan_1
 

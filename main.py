@@ -1416,6 +1416,21 @@ def duncan_rules(data):
     return sorted(total_duncan)
 
 
+def westgard_1(data):
+    #One of one point is outside of +- 3-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_wesgard_1 = []
+    indexak = 0
+    for i in data:
+        if i < d_3 or i > u_3:
+            no_westgard_1.append(indexak)
+        indexak += 1
+    return no_westgard_1
+
+
+
+
+
 
 
 
@@ -1507,6 +1522,22 @@ print('weco_5 = '  ,weco_5(data))
 print('weco_6 = '  ,weco_6(data))
 print('weco_7 = '  ,weco_7(data))
 print('weco_8 = '  ,weco_8(data))
+print('gitlow_1 = '  ,gitlow_1(data))
+print('gitlow_2 = '  ,gitlow_2(data))
+print('gitlow_3 = '  ,gitlow_3(data))
+print('gitlow_4 = '  ,gitlow_4(data))
+print('gitlow_5 = '  ,gitlow_5(data))
+print('gitlow_6 = '  ,gitlow_6(data))
+print('gitlow_7 = '  ,gitlow_7(data))
+print('gitlow_8 = '  ,gitlow_8(data))
+print('gitlow_9 = '  ,gitlow_9(data))
+print('duncan_1 = '  ,duncan_1(data))
+print('duncan_2 = '  ,duncan_2(data))
+print('duncan_3 = '  ,duncan_3(data))
+print('duncan_4 = '  ,duncan_4(data))
+print('duncan_5 = '  ,duncan_5(data))
+print('duncan_6 = '  ,duncan_6(data))
+print('duncan_7 = '  ,duncan_7(data))
 print('outliers = ', outliers)
 print()
 print('WECO POINTS =   ', weco_rules(data))

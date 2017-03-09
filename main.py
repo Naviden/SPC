@@ -1122,6 +1122,43 @@ def gitlow_3(data):
     return no_gitlow_3
 
 
+def gitlow_4(data):
+    #Four of five points is above 1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_gitlow_4 = []
+    poss_range = np.arange(4, len(data), 1)
+    # gitlow_4 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4:
+            no_gitlow_4.append(i)
+
+    return no_gitlow_4
+
+
+def gitlow_5(data):
+    #Four of five points is below -1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_gitlow_5 = []
+    poss_range = np.arange(4, len(data), 1)
+    # gitlow_5 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 4, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 4:
+            no_gitlow_5.append(i)
+
+    return no_gitlow_5
+
 
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran','hughes']

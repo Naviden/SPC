@@ -1420,7 +1420,7 @@ def duncan_rules(data):
 
 
 def RSA(data, type = 'all'):
-    types = ['weco', 'nelson', 'aiag','juran','hughes']
+    types = ['weco', 'nelson', 'aiag','juran','hughes', 'duncan']
     if type == 'all':
         r1 = weco_rules(data)
         r2 = nelson_rules(data)
@@ -1428,8 +1428,9 @@ def RSA(data, type = 'all'):
         r4 = juran_rules(data)
         r5 = hughes_rules(data)
         r6 = gitlow_rules(data)
+        r7 = duncan_rules(data)
 
-        r_list = [r1, r2, r3, r4, r5, r6]
+        r_list = [r1, r2, r3, r4, r5, r6, r7]
         data_vector = []
         for i in range(len(data)):
             item_vector = []
@@ -1473,6 +1474,9 @@ def RSA(data, type = 'all'):
     if type == 'gitlow':
         final_index = gitlow_rules(data)
 
+    if type == 'duncan':
+        final_index = duncan_rules(data)
+
     return final_index
 
 
@@ -1511,6 +1515,7 @@ print('AIAG POINTS =   ', aiag_rules(data))
 print('JURAN POINTS =  ', juran_rules(data))
 print('HUGHES POINTS = ', hughes_rules(data))
 print('GITLOW POINTS = ', gitlow_rules(data))
+print('DUNCAN POINTS = ', duncan_rules(data))
 print('RSA =           ', RSA(data))
 print()
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

@@ -1692,7 +1692,6 @@ def westgard_rules(data):
 
 
 
-
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran','hughes', 'duncan']
     if type == 'all':
@@ -1772,35 +1771,6 @@ outliers = prepare(raw)[3]
 
 
 g = 0
-for i in data:
-    print(g,i,sep='-')
-    g+=1
-
-
-print('weco_1 = '  ,weco_1(data))
-print('weco_2 = '  ,weco_2(data))
-print('weco_3 = '  ,weco_3(data))
-print('weco_4 = '  ,weco_4(data))
-print('weco_5 = '  ,weco_5(data))
-print('weco_6 = '  ,weco_6(data))
-print('weco_7 = '  ,weco_7(data))
-print('weco_8 = '  ,weco_8(data))
-print('gitlow_1 = '  ,gitlow_1(data))
-print('gitlow_2 = '  ,gitlow_2(data))
-print('gitlow_3 = '  ,gitlow_3(data))
-print('gitlow_4 = '  ,gitlow_4(data))
-print('gitlow_5 = '  ,gitlow_5(data))
-print('gitlow_6 = '  ,gitlow_6(data))
-print('gitlow_7 = '  ,gitlow_7(data))
-print('gitlow_8 = '  ,gitlow_8(data))
-print('gitlow_9 = '  ,gitlow_9(data))
-print('duncan_1 = '  ,duncan_1(data))
-print('duncan_2 = '  ,duncan_2(data))
-print('duncan_3 = '  ,duncan_3(data))
-print('duncan_4 = '  ,duncan_4(data))
-print('duncan_5 = '  ,duncan_5(data))
-print('duncan_6 = '  ,duncan_6(data))
-print('duncan_7 = '  ,duncan_7(data))
 print('outliers = ', outliers)
 print()
 print('WECO POINTS =   ', weco_rules(data))
@@ -1810,7 +1780,7 @@ print('JURAN POINTS =  ', juran_rules(data))
 print('HUGHES POINTS = ', hughes_rules(data))
 print('GITLOW POINTS = ', gitlow_rules(data))
 print('DUNCAN POINTS = ', duncan_rules(data))
-print('WESTGARD POINTS = ', westgard_rules(data))
+print('WESTGARD POINTS =', westgard_rules(data))
 print('RSA =           ', RSA(data))
 print()
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

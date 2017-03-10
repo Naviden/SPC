@@ -1513,10 +1513,10 @@ def westgard_5(data):
 
 def westgard_6(data):
     #Seven of seven points in a trend increasing or decreasing
-    no_weco_5 = []
+    no_westgard_6 = []
     poss_range = np.arange(6, len(data), 1)
-    # weco_5 should look at a range of 6 >> poss_range forces the code
-    # to ignore the first 5 points ad start from 6th point
+    # westgard_6 should look at a range of 7 >> poss_range forces the code
+    # to ignore the first 6 points ad start from 6th point
     for i in poss_range:
         rangek = np.arange(i - 6, i + 1, 1)
         tempak = []
@@ -1529,9 +1529,9 @@ def westgard_6(data):
                     tempak.append('h')
             a += 1
         if tempak.count('l') == 7 or tempak.count('h') == 7:
-            no_weco_5.append(i)
+            no_westgard_6.append(i)
 
-    return no_weco_5
+    return no_westgard_6
 
 
 

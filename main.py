@@ -1430,8 +1430,9 @@ def westgard_1(data):
 
 def westgard_2(data):
     #Two of two points outside +-2-sigma control limits
+    #change
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
-    no_westgard_2 = []
+    no_westgrad_2 = []
     poss_range = np.arange(1, len(data), 1)
     # westgard_2 should look at a range of 3 >> poss_range
     for i in poss_range:
@@ -1439,17 +1440,34 @@ def westgard_2(data):
         tempak = []
         for j in rangek:
             if data[j] > u_2:
-                tempak.append('u')
+                tempak.append('T')
             if data[j] < d_2:
-                tempak.append('d')
-        if tempak.count('u') >= 2 or tempak.count('d') >= 2:
+                tempak.append('T')
+        if tempak.count('T') >= 2 :
             no_westgard_2.append(i)
 
-    return westgard_2()
+    return no_westgard_2
+
 
 def westgard_3(data):
     #Four of four points outside +-1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_westgard_3 = []
+    poss_range = np.arange(3, len(data), 1)
+    # westgard_3 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 3, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('T')
+            if data[j] < d_1:
+                tempak.append('T')
 
+        if tempak.count('T') >= 4 :
+            no_westgard_3.append(i)
+
+    return no_westgard_3
 
 
 

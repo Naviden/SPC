@@ -1543,6 +1543,7 @@ def westgard_7(data):
             no_westgrad_7.append(i)
     return no_westgrad_7
 
+
 def westgard_8(data):
     #Two of three points outside +-2-sigma control limits
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
@@ -1561,6 +1562,28 @@ def westgard_8(data):
             no_westgard_8.append(i)
 
     return no_westgard_8
+
+
+def westgard_9(data):
+    #Three of three points outside +-1-sigma control limits
+    u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
+    no_westgard_9 = []
+    poss_range = np.arange(2, len(data), 1)
+    # westgard_9 should look at a range of 5 >> poss_range
+    for i in poss_range:
+        rangek = np.arange(i - 2, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > u_1:
+                tempak.append('T')
+            if data[j] < d_1:
+                tempak.append('T')
+
+        if tempak.count('T') >= 3 :
+            no_westgard_9.append(i)
+
+    return no_westgard_9
+
 
 
 

@@ -1585,7 +1585,85 @@ def westgard_9(data):
     return no_westgard_9
 
 
+def westgard_10(data):
+    #Six of six points on one side of center line
+    no_westgard_10 = []
+    poss_range = np.arange(5, len(data), 1)
+    # westgard_10 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 5, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 6 or tempak.count('d') == 6:
+            no_westgard_10.append(i)
 
+    return no_westgard_10
+
+
+def westgard_11(data):
+    #Eight of eight points on one side of center line
+    no_westgard_11 = []
+    poss_range = np.arange(7, len(data), 1)
+    # westgard_11 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 7, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 8 or tempak.count('d') == 8:
+            no_westgard_11.append(i)
+
+    return no_westgard_11
+
+
+def westgard_12(data):
+    #Nine of nine points on one side of center line
+    no_westgard_12 = []
+    poss_range = np.arange(8, len(data), 1)
+    # westgard_12 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 8, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 9 or tempak.count('d') == 9:
+            no_westgard_12.append(i)
+
+    return no_westgard_12
+
+
+
+def westgard_13(data):
+    #Twelve of twelve points on one side of center line
+    no_westgard_13 = []
+    poss_range = np.arange(11, len(data), 1)
+    # westgard_13 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 11, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] > avg:
+                tempak.append('u')
+            if data[j] < avg:
+                tempak.append('d')
+        if tempak.count('u') == 12 or tempak.count('d') == 12:
+            no_westgard_13.append(i)
+
+    return no_westgard_13
 
 
 

@@ -1470,6 +1470,31 @@ def westgard_3(data):
     return no_westgard_3
 
 
+def westgard_4(data):
+    #Ten of ten points on one side of center line
+    no_westgard_4 = []
+    poss_range = np.arange(9, len(data), 1)
+    # westgard_4 should look at a range of 8 >> poss_range
+    avg = stats(data)[0]
+    for i in poss_range:
+        rangek = np.arange(i - 9, i + 1, 1)
+        tempak = []
+        for j in rangek:
+            if data[j] < avg:
+                tempak.append('l')
+            if data[j] > avg:
+                tempak.append('h')
+
+        if tempak.count('l') == 10 or tempak.count('h') == 10:
+            no_westgard_4.append(i)
+
+    return no_westgard_4
+
+
+
+
+
+
 
 
 

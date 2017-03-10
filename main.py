@@ -1419,7 +1419,7 @@ def duncan_rules(data):
 def westgard_1(data):
     #One of one point is outside of +- 3-sigma control limits
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
-    no_wesgard_1 = []
+    no_westgard_1 = []
     indexak = 0
     for i in data:
         if i < d_3 or i > u_3:
@@ -1432,7 +1432,7 @@ def westgard_2(data):
     #Two of two points outside +-2-sigma control limits
     #change
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
-    no_westgrad_2 = []
+    no_westgard_2 = []
     poss_range = np.arange(1, len(data), 1)
     # westgard_2 should look at a range of 3 >> poss_range
     for i in poss_range:
@@ -1494,7 +1494,7 @@ def westgard_4(data):
 def westgard_5(data):
     #Two adjacent points on opposite sides of +-2-sigma
     u_1, u_2, u_3, d_1, d_2, d_3 = area(data, type='time')
-    no_westgrad_5 = []
+    no_westgard_5 = []
     poss_range = np.arange(1, len(data), 1)
     # westgard_5 should look at a range of 2 >> poss_range
     for i in poss_range:
@@ -1645,7 +1645,6 @@ def westgard_12(data):
     return no_westgard_12
 
 
-
 def westgard_13(data):
     #Twelve of twelve points on one side of center line
     no_westgard_13 = []
@@ -1666,6 +1665,32 @@ def westgard_13(data):
     return no_westgard_13
 
 
+def westgard_rules(data):
+    we1 = westgard_1(data)
+    we2 = westgard_2(data)
+    we3 = westgard_3(data)
+    we4 = westgard_4(data)
+    we5 = westgard_5(data)
+    we6 = westgard_6(data)
+    we7 = westgard_7(data)
+    we8 = westgard_8(data)
+    we9 = westgard_9(data)
+    we10 = westgard_10(data)
+    we11 = westgard_11(data)
+    we12 = westgard_12(data)
+    we13 = westgard_13(data)
+
+
+
+    we_list =[we1, we2, we3, we4, we5, we6, we7, we8, we9, we10, we11, we12, we13]
+    total_westgard = []
+    for i in we_list:
+        for j in i:
+            if j not in total_westgard:
+                total_westgard.append(j)
+    return sorted(total_westgard)
+
+
 
 
 def RSA(data, type = 'all'):
@@ -1678,8 +1703,9 @@ def RSA(data, type = 'all'):
         r5 = hughes_rules(data)
         r6 = gitlow_rules(data)
         r7 = duncan_rules(data)
+        r8 = westgard_rules(data)
 
-        r_list = [r1, r2, r3, r4, r5, r6, r7]
+        r_list = [r1, r2, r3, r4, r5, r6, r7, r8]
         data_vector = []
         for i in range(len(data)):
             item_vector = []
@@ -1725,6 +1751,9 @@ def RSA(data, type = 'all'):
 
     if type == 'duncan':
         final_index = duncan_rules(data)
+
+    if type == 'westgard':
+        final_index = westgard_rules(data)
 
     return final_index
 
@@ -1781,6 +1810,7 @@ print('JURAN POINTS =  ', juran_rules(data))
 print('HUGHES POINTS = ', hughes_rules(data))
 print('GITLOW POINTS = ', gitlow_rules(data))
 print('DUNCAN POINTS = ', duncan_rules(data))
+print('WESTGARD POINTS = ', westgard_rules(data))
 print('RSA =           ', RSA(data))
 print()
 print('Outlier Limits = ', (round(prepare(raw)[1],3),round(prepare(raw)[2],3)))

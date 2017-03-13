@@ -1692,6 +1692,19 @@ def westgard_rules(data):
 
 
 
+def step(data):
+    #checks for the steps in the data
+    range_list = []
+    for i in range(1, len(data)):
+        range_list.append(abs(data[i] - data[i - 1]))
+
+    step = []
+    for j in range(len(range_list)):
+        if range_list[j] > (np.std(range_list) * 4):
+            step.append(j+1)
+
+
+
 def RSA(data, type = 'all'):
     types = ['weco', 'nelson', 'aiag','juran','hughes', 'duncan']
     if type == 'all':
@@ -1789,11 +1802,24 @@ print('Run time = ',round(time()-t0,2),'seconds ')
 
 
 
-
-"""u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
+u_1, u_2, u_3 , d_1, d_2, d_3 = area(data , type= 'time')
 
 plt.figure(1)
-plt.plot(data, marker='o')
+plt.plot(data, marker='o', color= 'k')
+# giving the control rule category
+control_base = RSA(data)
+xx=0
+for j in range (len(data)):
+    if j in control_base:
+        size=7
+        color='r'
+    else:
+        size=5
+        color='g'
+    plt.plot(xx,data[j], linestyle="None", marker="o", markersize=size, color=color)
+    xx=xx+1
+
+plt.figure(1)
 plt.hlines(stats(data)[0],xmax = len(data), xmin= 0,colors='k')
 plt.hlines(u_1,xmax = len(data), xmin= 0,colors='c')
 plt.hlines(d_1,xmax = len(data), xmin= 0,colors='c')
@@ -1801,6 +1827,10 @@ plt.hlines(u_2,xmax = len(data), xmin= 0,colors='b')
 plt.hlines(d_2,xmax = len(data), xmin= 0,colors='b')
 plt.hlines(u_3,xmax = len(data), xmin= 0,colors='r')
 plt.hlines(d_3,xmax = len(data), xmin= 0,colors='r')
-plt.axis([0,len(data),0,max(data) * 1.1])
+plt.title('SPC')
+plt.ylabel('Value')
+plt.xlim([0,len(data)])
+#plt.xticks(range(len(df.data)), df['Atco_1'].tolist(), rotation='vertical')
 plt.xticks(list(range(0,len(data)+1)))
-plt.show()"""
+
+plt.show()

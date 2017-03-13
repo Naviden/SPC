@@ -1698,11 +1698,11 @@ def step(data):
     for i in range(1, len(data)):
         range_list.append(abs(data[i] - data[i - 1]))
 
-    step = []
+    stepak = []
     for j in range(len(range_list)):
         if range_list[j] > (np.std(range_list) * 4):
-            step.append(j+1)
-
+            stepak.append(j+1)
+    return stepak
 
 
 def RSA(data, type = 'all'):

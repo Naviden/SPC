@@ -1691,18 +1691,50 @@ def westgard_rules(data):
     return sorted(total_westgard)
 
 
-
 def step(data):
     #checks for the steps in the data
-    range_list = []
+    range_list = [] #using each data oint creates the range list
     for i in range(1, len(data)):
         range_list.append(abs(data[i] - data[i - 1]))
 
-    stepak = []
+    stepak = [] # looks in range list for items which has a distance bigger than 4std
     for j in range(len(range_list)):
         if range_list[j] > (np.std(range_list) * 4):
             stepak.append(j+1)
-    return stepak
+
+    if len(stepak) > 0:
+        stepak2 = [] #separates each index in stepak into two points
+        for f in stepak:
+            if f > 0:
+                stepak2.append(f-1)
+                stepak2.append(f)
+
+        ranges = [] #a list of ranges, between these ranges we have steps
+        range_base = [0]+stepak2
+        range_base.append(len(data)-1) #adding start and end indexes
+
+        for k in range(0,len(range_base)-1,2):
+            r =(range_base[k],range_base[k+1])
+            ranges.append(r)
+
+        means = [] #list of mean of each ranges
+        for ran in ranges:
+            means.append(np.mean(data[ran[0]:ran[1]]))
+
+        for q in range(len(means)-1):
+            if means[q+1] - means[q] < (np.std(range_list) * 4):
+                del ranges[:q+2]
+
+        final_ind = [] #index of items which create a significant distance witht the next step
+        if len(ranges) > 0:
+            for g in ranges:
+                final_ind.append(g[1])
+            return final_ind
+        else:
+            return 'no step found'
+
+    else:
+        return 'no step found'
 
 
 def RSA(data, type = 'all'):
@@ -1785,6 +1817,7 @@ outliers = prepare(raw)[3]
 
 g = 0
 print('outliers = ', outliers)
+print('step= ', step(data))
 print()
 print('WECO POINTS =   ', weco_rules(data))
 print('NELSON POINTS = ', nelson_rules(data))

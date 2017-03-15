@@ -45,11 +45,58 @@ def prepare(data, type = 'time'):
             loa = qq1 - (1.5 * IQR)
             uoa = qq3 + (1.5 * IQR)
 
+
     raw = data
 
     data_clean = [x for x in raw if x < uoa and x > loa]
     outlier = [x for x in raw if x > uoa or x < loa]
-    return data_clean, loa, uoa, outlier
+
+    # STEP
+    # checks for the steps in the data
+    range_list = []  # using each data oint creates the range list
+    for ii in range(1, len(data_clean)):
+        range_list.append(abs(data_clean[ii] - data_clean[ii - 1]))
+
+    stepak = []  # looks in range list for items which has a distance bigger than 4std
+    for jj in range(len(range_list)):
+        if range_list[jj] > (np.std(range_list) * 4):
+            stepak.append(j + 1)
+
+    if len(stepak) > 0:
+        stepak2 = []  # separates each index in stepak into two points
+        for ff in stepak:
+            if ff > 0:
+                stepak2.append(ff - 1)
+                stepak2.append(ff)
+
+        ranges = []  # a list of ranges, between these ranges we have steps
+        range_base = [0] + stepak2
+        range_base.append(len(data_clean) - 1)  # adding start and end indexes
+
+        for kk in range(0, len(range_base) - 1, 2):
+            r = (range_base[kk], range_base[kk + 1])
+            ranges.append(r)
+
+        means = []  # list of mean of each ranges
+        for ran in ranges:
+            means.append(np.mean(data_clean[ran[0]:ran[1]]))
+
+        for qq in range(len(means) - 1):
+            if means[qq + 1] - means[qq] < (np.std(range_list) * 4):
+                del ranges[:qq + 2]
+
+        final_ind = []  # index of items which create a significant distance witht the next step
+        if len(ranges) > 0:
+            for gg in ranges:
+                final_ind.append(gg[1])
+            step_answ = final_ind
+        else:
+            step_answ = 'no step found'
+
+    else:
+        step_answ = 'no step found'
+
+    return data_clean, loa, uoa, outlier, step_answ
 
 
 def stats(data):

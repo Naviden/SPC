@@ -8,6 +8,7 @@ from time import time
 t0 = time()
 
 def prepare(data, type = 'time'):
+    """ There should be a docstring for this function here"""
     #convert Series to list
     data = data.tolist()
     #Remove possible zeros

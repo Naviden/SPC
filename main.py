@@ -4,7 +4,7 @@ from statsmodels.stats.stattools import medcouple
 import matplotlib.pyplot as plt
 import pandas as pd
 from time import time
-
+# messs
 t0 = time()
 
 def prepare(data, type = 'time'):

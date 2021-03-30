@@ -112,30 +112,22 @@ def stats(data):
 
 
 def area(data, type ='other'):
-    #calculates areas
+    """calculates areas (1, 2 and 3 std from mean)"""
+    mean = stats(data)[0]
+    std = stats(data)[4]
 
+    u_1 = mean + std
+    u_2 = mean + (2 * std)
+    u_3 = mean + (3 * std)
+    d_1 = mean - std
+    d_2 = mean - (2 * std)
+    d_3 = mean - (3 * std)
     if type == 'time':
-        u_1 = stats(data)[0] + stats(data)[4]
-        u_2 = stats(data)[0] + (2 * stats(data)[4])
-        u_3 = stats(data)[0] + (3 * stats(data)[4])
-
-        d_1 = stats(data)[0] - stats(data)[4]
-        if d_1 < 0 :
-            d_1 = 0
-        d_2 = stats(data)[0] - (2 * stats(data)[4])
-        if d_2 < 0 :
-            d_2 = 0
-        d_3 = stats(data)[0] - (3 * stats(data)[4])
-        if d_3 < 0 :
-            d_3 = 0
-
-    else:
-        u_1 = stats(data)[0] + stats(data)[4]
-        u_2 = stats(data)[0] + (2 * stats(data)[4])
-        u_3 = stats(data)[0] + (3 * stats(data)[4])
-        d_1 = stats(data)[0] - stats(data)[4]
-        d_2 = stats(data)[0] - (2 * stats(data)[4])
-        d_3 = stats(data)[0] - (3 * stats(data)[4])
+        d_1 = max(0, d_1)
+        d_2 = max(0, d_2)
+        d_3 = max(0, d_3)
+   
+        
 
     return  u_1, u_2, u_3 , d_1, d_2, d_3
 
